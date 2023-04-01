@@ -7,7 +7,6 @@ import FilterProduct from "./FilterProduct";
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
   const categoryList = [...new Set(productData.map((el) => el.category))];
-  const [all, setAll] = useState(false);
 
   //filter data display
   const [filterby, setFilterBy] = useState("");
@@ -15,7 +14,7 @@ const AllProduct = ({ heading }) => {
 
   useEffect(() => {
     setDataFilter(productData);
-  }, [productData, all]);
+  }, [productData]);
 
   const handleFilterProduct = (category) => {
     setFilterBy(category);
@@ -34,13 +33,6 @@ const AllProduct = ({ heading }) => {
       <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
 
       <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
-        <div onClick={() => setAll(true)}>
-          <div className="text-3xl p-5  rounded-full cursor-pointer text-white bg-yellow-500">
-            <CiForkAndKnife />
-          </div>
-
-          <p className="text-center font-medium my-1 capitalize">All</p>
-        </div>
         {categoryList[0] ? (
           categoryList.map((el) => {
             return (
@@ -60,7 +52,7 @@ const AllProduct = ({ heading }) => {
       </div>
 
       <div className="flex flex-wrap justify-center gap-4 my-4">
-        {dataFilter[0] || all
+        {dataFilter[0]
           ? dataFilter.map((el) => {
               return (
                 <CardFeature
